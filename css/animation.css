@@ -119,54 +119,56 @@
     opacity: 1;
 }
 
-@media all and (max-width:350px) {
+/* スマホ・タブレット: ハンバーガーを右上、メニューを右からスライド */
+@media screen and (max-width: 768px) {
+    #drawer-toggle-label {
+        left: auto;
+        right: 0;
+    }
 
     #drawer-toggle-label:before {
-        right: 10px;
-        bottom: 13px;
+        left: 13px;
+        top: 20px;
+        margin: 0;
+    }
+
+    #drawer {
+        left: auto;
+        right: -300px;
+    }
+
+    #drawer-toggle:checked~#drawer {
+        left: auto;
+        right: 0;
+    }
+
+    /* 開いた時: 暗幕は左側、ヘッダーは動かさない */
+    #drawer-toggle:checked~#drawer-toggle-label {
+        left: 0;
+        right: auto;
+        width: calc(100% - 300px);
+    }
+
+    #drawer-toggle:checked~header {
+        left: 0;
+    }
+
+    #drawer-toggle:checked~#page-content {
+        margin-left: 0;
+        margin-right: 300px;
+    }
+}
+
+@media all and (max-width: 350px) {
+    #drawer-toggle:checked~#drawer {
+        width: calc(100% - 50px);
     }
 
     #drawer-toggle:checked~#drawer-toggle-label {
-        height: 100%;
         width: 50px;
     }
 
-    #drawer-toggle:checked~#drawer-toggle-label,
-    #drawer-toggle:checked~header {
-        left: calc(100% - 50px);
-    }
-
-    #drawer-toggle:checked~#drawer {
-        width: calc(100% - 50px);
-        padding: 20px;
-    }
-
     #drawer-toggle:checked~#page-content {
-        margin-left: calc(100% - 50px);
-    }
-
-}
-
-@media screen and (max-width: 768px) {
-    #drawer-toggle-label {
-        right: 0px;
-    }
-
-    #drawer-toggle-label:before {
-        margin-left: -5px;
-        margin-top: -5px;
-    }
-
-    #drawer-toggle:checked~#drawer-toggle-label,
-    #drawer-toggle:checked~header {
-        right: 300px;
-    }
-
-    #drawer-toggle:checked~#drawer {
-        right: 0px;
-    }
-
-    #drawer-toggle:checked~#page-content {
-        margin-right: 300px;
+        margin-right: calc(100% - 50px);
     }
 }
