@@ -36,7 +36,7 @@
     display: block;
     position: fixed;
     background: rgba(255, 255, 255, .0);
-    z-index: 1;
+    z-index: 3;
 }
 
 /* adds our "hamburger" menu icon */
@@ -69,6 +69,11 @@
 
 #drawer-toggle:checked~#drawer {
     left: 0px;
+}
+
+/* メニューをフッターより前面に出す */
+#drawer {
+    z-index: 2;
 }
 
 #drawer-toggle:checked~#page-content {
@@ -119,7 +124,7 @@
     opacity: 1;
 }
 
-/* スマホ・タブレット: ハンバーガーを右上、メニューを右からスライド */
+/* スマホ・タブレット: ハンバーガーを右上に固定、メニューを右からスライド */
 @media screen and (max-width: 768px) {
     #drawer-toggle-label {
         left: auto;
@@ -135,18 +140,37 @@
     #drawer {
         left: auto;
         right: -300px;
+        padding-top: 60px;
+    }
+
+    /* 開いた時: ハンバーガーは右上のまま。暗幕は左側(メニューの外側)に出す */
+    #drawer-toggle:checked~#drawer-toggle-label {
+        left: auto;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        background: transparent;
+    }
+
+    #drawer-toggle-label:after {
+        content: '';
+        display: none;
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 300px;
+        background: rgba(255, 255, 255, .8);
+    }
+
+    #drawer-toggle:checked~#drawer-toggle-label:after {
+        display: block;
     }
 
     #drawer-toggle:checked~#drawer {
         left: auto;
         right: 0;
-    }
-
-    /* 開いた時: 暗幕は左側、ヘッダーは動かさない */
-    #drawer-toggle:checked~#drawer-toggle-label {
-        left: 0;
-        right: auto;
-        width: calc(100% - 300px);
     }
 
     #drawer-toggle:checked~header {
@@ -155,7 +179,7 @@
 
     #drawer-toggle:checked~#page-content {
         margin-left: 0;
-        margin-right: 300px;
+        margin-right: 0;
     }
 }
 
@@ -164,11 +188,7 @@
         width: calc(100% - 50px);
     }
 
-    #drawer-toggle:checked~#drawer-toggle-label {
-        width: 50px;
-    }
-
-    #drawer-toggle:checked~#page-content {
-        margin-right: calc(100% - 50px);
+    #drawer-toggle:checked~#drawer-toggle-label:after {
+        right: calc(100% - 50px);
     }
 }
